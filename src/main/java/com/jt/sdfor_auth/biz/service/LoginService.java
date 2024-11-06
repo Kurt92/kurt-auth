@@ -7,6 +7,8 @@ import com.jt.sdfor_auth.framework.core.jwt.JwtUtil;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 @AllArgsConstructor
 public class LoginService {
@@ -14,13 +16,13 @@ public class LoginService {
     private final JwtUtil jwtUtil;
     private final UserMngRepository userMngRepository;
 
-    public void login(LoginDTO.Request loginDTO) {
+    public String login(LoginDTO.Request loginDTO) {
 
         UserMng userMng = userMngRepository.findByAccountIdAndAccountPass(loginDTO.getId(), loginDTO.getPassword());
 
 
         String token = jwtUtil.generateToken(userMng);
 
-
+        return token;
     }
 }
