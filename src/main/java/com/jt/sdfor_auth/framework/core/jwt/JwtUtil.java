@@ -17,9 +17,7 @@ import java.util.Date;
 @Component
 public class JwtUtil {
 
-
-    final static public String ACCESS_TOKEN_NAME = "accessToken";
-    final static public String REFRESH_TOKEN_NAME = "refreshToken";
+    //: todo 시크릿키 방식에서 비대칭키 방식으로 바꿀것
 
     @Value("${spring.data.jwt.secret}")
     private String SECRET_KEY;
@@ -47,7 +45,7 @@ public class JwtUtil {
         return expiration.before(new Date());
     }
 
-    public String generateToken(UserMng userMng) {
+    public String generateAccessToken(UserMng userMng) {
         return doGenerateToken(userMng, JwtTokenEnum.acc.getExpiredTime());
     }
 

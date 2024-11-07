@@ -22,7 +22,7 @@ public class LoginService {
 
         UserMng userMng = userMngRepository.findByAccountIdAndAccountPass(loginDTO.getId(), loginDTO.getPassword());
 
-        res.addCookie(cookieUtil.generateTokenCookie(JwtTokenEnum.acc.getName(), jwtUtil.generateToken(userMng)));
-        res.addCookie(cookieUtil.generateTokenCookie(JwtTokenEnum.ref.getName(), jwtUtil.generateToken(userMng)));
+        res.addCookie(cookieUtil.generateTokenCookie(JwtTokenEnum.acc.getName(), jwtUtil.generateAccessToken(userMng)));
+        res.addCookie(cookieUtil.generateTokenCookie(JwtTokenEnum.ref.getName(), jwtUtil.generateRefreshToken(userMng)));
     }
 }
