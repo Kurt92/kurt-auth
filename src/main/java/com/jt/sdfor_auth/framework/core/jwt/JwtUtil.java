@@ -1,6 +1,7 @@
 package com.jt.sdfor_auth.framework.core.jwt;
 
 import com.jt.sdfor_auth.biz.entity.UserMng;
+import com.jt.sdfor_auth.framework.core.cookie.JwtTokenEnum;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.Jwts;
@@ -16,8 +17,6 @@ import java.util.Date;
 @Component
 public class JwtUtil {
 
-    public final static long TOKEN_VALIDATION_SECOND = 1000L * 10;
-    public final static long REFRESH_TOKEN_VALIDATION_SECOND = 1000L * 60 * 24 * 2;
 
     final static public String ACCESS_TOKEN_NAME = "accessToken";
     final static public String REFRESH_TOKEN_NAME = "refreshToken";
@@ -49,17 +48,19 @@ public class JwtUtil {
     }
 
     public String generateToken(UserMng userMng) {
-        return doGenerateToken(userMng.getUserNm(), TOKEN_VALIDATION_SECOND);
+        return doGenerateToken(userMng, JwtTokenEnum.acc.getExpiredTime());
     }
 
     public String generateRefreshToken(UserMng userMng) {
-        return doGenerateToken(userMng.getUserNm(), REFRESH_TOKEN_VALIDATION_SECOND);
+        return doGenerateToken(userMng, JwtTokenEnum.ref.getExpiredTime());
     }
 
-    public String doGenerateToken(String username, long expireTime) {
+    public String doGenerateToken(UserMng userMng, long expireTime) {
 
         Claims claims = Jwts.claims();
-        claims.put("username", username);
+        claims.put("accountId", userMng.getAccountId());
+        claims.put("userNm", userMng.getUserNm());
+        claims.put("email", userMng.getEmail());
 
         String jwt = Jwts.builder()
                 .setClaims(claims)
