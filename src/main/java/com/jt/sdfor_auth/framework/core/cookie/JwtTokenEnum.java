@@ -7,8 +7,8 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public enum JwtTokenEnum {
 
-    acc("access_token", 15 * 60),   // 15분
-    ref("refresh_token",7 * 24 * 60 * 60);  // 7일
+    acc("sdFor_access_token", 15 * 60),   // 15분
+    ref("sdFor_refresh_token",7 * 24 * 60 * 60);  // 7일
 
     private final String name;
     private final int expiredTime;

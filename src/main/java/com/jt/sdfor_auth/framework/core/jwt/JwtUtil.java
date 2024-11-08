@@ -7,17 +7,25 @@ import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.security.Keys;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 
 import java.nio.charset.StandardCharsets;
 import java.security.Key;
 import java.util.Date;
+import java.util.concurrent.TimeUnit;
+
 @Component
 public class JwtUtil {
-
     //: todo 시크릿키 방식에서 비대칭키 방식으로 바꿀것
+
+
+    @Autowired
+    private RedisTemplate<String, Object> redisTemplate;
+
 
     @Value("${spring.data.jwt.secret}")
     private String SECRET_KEY;
@@ -50,7 +58,18 @@ public class JwtUtil {
     }
 
     public String generateRefreshToken(UserMng userMng) {
-        return doGenerateToken(userMng, JwtTokenEnum.ref.getExpiredTime());
+
+        String refreshToken = doGenerateToken(userMng, JwtTokenEnum.ref.getExpiredTime());
+
+        // Redis에 리프레시 토큰 저장 (Key: 사용자 ID, Value: 리프레시 토큰)
+        redisTemplate.opsForValue().set(
+                "refreshToken : " + userMng.getAccountId(),
+                refreshToken,
+                JwtTokenEnum.ref.getExpiredTime(),
+                TimeUnit.MILLISECONDS
+        );
+
+        return refreshToken;
     }
 
     public String doGenerateToken(UserMng userMng, long expireTime) {
