@@ -35,26 +35,30 @@ public class JwtUtil {
         return Keys.hmacShaKeyFor(keyBytes);
     }
 
-    public Claims extractAllClaims(String token) throws ExpiredJwtException {
-        return Jwts.parserBuilder()
-                .setSigningKey(getSigningKey(SECRET_KEY))
-                .build()
-
-                .parseClaimsJws(token)
-                .getBody();
-    }
-
-    public String getUsername(String token) {
-        return extractAllClaims(token).get("username", String.class);
-    }
-
-    public Boolean isTokenExpired(String token) {
-        final Date expiration = extractAllClaims(token).getExpiration();
-        return expiration.before(new Date());
-    }
 
     public String generateAccessToken(UserMng userMng) {
         return doGenerateToken(userMng, JwtTokenEnum.acc.getExpiredTime());
+    }
+
+    public String reGenerateAccessToken(String refreshToken) {
+
+        if(validateToken(refreshToken)) {
+            Claims claims = Jwts.claims();
+            claims.put("accountId", extractAllClaims(refreshToken).get("accountId", String.class));
+            claims.put("userNm", extractAllClaims(refreshToken).get("userNm", String.class));
+            claims.put("email", extractAllClaims(refreshToken).get("email", String.class));
+
+            String jwt = Jwts.builder()
+                    .setClaims(claims)
+                    .setIssuedAt(new Date(System.currentTimeMillis()))
+                    .setExpiration(new Date(System.currentTimeMillis() + JwtTokenEnum.acc.getExpiredTime()))
+                    .signWith(getSigningKey(SECRET_KEY), SignatureAlgorithm.HS256)
+                    .compact();
+
+            return jwt;
+        } else {
+            return null;
+        }
     }
 
     public String generateRefreshToken(UserMng userMng) {
@@ -89,10 +93,32 @@ public class JwtUtil {
         return jwt;
     }
 
-    public Boolean validateToken(String token, UserDetails userDetails) {
-        final String username = getUsername(token);
+    public Boolean validateToken(String token) {
 
-        return (username.equals(userDetails.getUsername()) && !isTokenExpired(token));
+        String accountId = getUsername(token);
+        String storedToken = (String) redisTemplate.opsForValue().get("refreshToken : " + accountId);
+
+        return (storedToken.equals(accountId) && !isTokenExpired(token));
     }
+
+    public String getUsername(String token) {
+        return extractAllClaims(token).get("accountId", String.class);
+    }
+
+    public Claims extractAllClaims(String token) throws ExpiredJwtException {
+        return Jwts.parserBuilder()
+                .setSigningKey(getSigningKey(SECRET_KEY))
+                .build()
+                .parseClaimsJws(token)
+                .getBody();
+    }
+
+    public Boolean isTokenExpired(String token) {
+        final Date expiration = extractAllClaims(token).getExpiration();
+        return expiration.before(new Date());
+    }
+
+
+
 
 }

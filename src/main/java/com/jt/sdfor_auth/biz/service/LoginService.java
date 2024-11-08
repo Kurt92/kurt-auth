@@ -25,4 +25,10 @@ public class LoginService {
         res.addCookie(cookieUtil.generateTokenCookie(JwtTokenEnum.acc.getName(), jwtUtil.generateAccessToken(userMng)));
         res.addCookie(cookieUtil.generateTokenCookie(JwtTokenEnum.ref.getName(), jwtUtil.generateRefreshToken(userMng)));
     }
+
+    public void autoLogin(String refreshToken, HttpServletResponse res) {
+
+        res.addCookie(cookieUtil.generateTokenCookie(JwtTokenEnum.acc.getName(), jwtUtil.reGenerateAccessToken(refreshToken)));
+
+    }
 }
