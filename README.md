@@ -1,4 +1,4 @@
-# projectNm_auth
+# kurt_auth
 
 JWT 발급을 위한 auth 서버
 
