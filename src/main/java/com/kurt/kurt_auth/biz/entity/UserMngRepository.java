@@ -1,4 +1,4 @@
-package com.jt.sdfor_auth.biz.entity;
+package com.kurt.kurt_auth.biz.entity;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 

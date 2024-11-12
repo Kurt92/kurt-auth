@@ -1,4 +1,4 @@
-package com.jt.sdfor_auth.framework.core.JPAConf;
+package com.kurt.kurt_auth.framework.core.JPAConf;
 
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import jakarta.persistence.EntityManager;

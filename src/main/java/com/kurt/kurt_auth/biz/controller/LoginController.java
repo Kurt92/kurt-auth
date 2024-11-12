@@ -1,7 +1,7 @@
-package com.jt.sdfor_auth.biz.controller;
+package com.kurt.kurt_auth.biz.controller;
 
-import com.jt.sdfor_auth.biz.dto.LoginDTO;
-import com.jt.sdfor_auth.biz.service.LoginService;
+import com.kurt.kurt_auth.biz.dto.LoginDTO;
+import com.kurt.kurt_auth.biz.service.LoginService;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;

@@ -1,4 +1,4 @@
-package com.jt.sdfor_auth.framework.core.cors;
+package com.kurt.kurt_auth.framework.core.cors;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;

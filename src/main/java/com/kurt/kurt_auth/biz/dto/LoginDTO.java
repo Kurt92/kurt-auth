@@ -1,4 +1,4 @@
-package com.jt.sdfor_auth.biz.dto;
+package com.kurt.kurt_auth.biz.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

@@ -1,11 +1,11 @@
-package com.jt.sdfor_auth.biz.service;
+package com.kurt.kurt_auth.biz.service;
 
-import com.jt.sdfor_auth.biz.dto.LoginDTO;
-import com.jt.sdfor_auth.biz.entity.UserMng;
-import com.jt.sdfor_auth.biz.entity.UserMngRepository;
-import com.jt.sdfor_auth.framework.core.cookie.CookieUtil;
-import com.jt.sdfor_auth.framework.core.cookie.JwtTokenEnum;
-import com.jt.sdfor_auth.framework.core.jwt.JwtUtil;
+import com.kurt.kurt_auth.biz.dto.LoginDTO;
+import com.kurt.kurt_auth.biz.entity.UserMng;
+import com.kurt.kurt_auth.biz.entity.UserMngRepository;
+import com.kurt.kurt_auth.framework.core.cookie.CookieUtil;
+import com.kurt.kurt_auth.framework.core.cookie.JwtTokenEnum;
+import com.kurt.kurt_auth.framework.core.jwt.JwtUtil;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;

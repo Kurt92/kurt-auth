@@ -1,4 +1,4 @@
-package com.jt.sdfor_auth.framework.core.cookie;
+package com.kurt.kurt_auth.framework.core.cookie;
 
 import jakarta.servlet.http.Cookie;
 import org.springframework.stereotype.Service;

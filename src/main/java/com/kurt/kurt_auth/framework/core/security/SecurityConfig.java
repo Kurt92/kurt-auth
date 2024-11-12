@@ -1,4 +1,4 @@
-package com.jt.sdfor_auth.framework.core.security;
+package com.kurt.kurt_auth.framework.core.security;
 
 import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
 import org.springframework.context.annotation.Bean;

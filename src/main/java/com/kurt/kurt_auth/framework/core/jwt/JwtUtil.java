@@ -1,7 +1,7 @@
-package com.jt.sdfor_auth.framework.core.jwt;
+package com.kurt.kurt_auth.framework.core.jwt;
 
-import com.jt.sdfor_auth.biz.entity.UserMng;
-import com.jt.sdfor_auth.framework.core.cookie.JwtTokenEnum;
+import com.kurt.kurt_auth.biz.entity.UserMng;
+import com.kurt.kurt_auth.framework.core.cookie.JwtTokenEnum;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.Jwts;
@@ -10,7 +10,6 @@ import io.jsonwebtoken.security.Keys;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.redis.core.RedisTemplate;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 
 import java.nio.charset.StandardCharsets;
