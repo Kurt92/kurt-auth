@@ -2,10 +2,13 @@ package com.kurt.kurt_auth.biz.controller;
 
 import com.kurt.kurt_auth.biz.dto.LoginDTO;
 import com.kurt.kurt_auth.biz.service.LoginService;
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.Enumeration;
 
 @RestController
 @RequiredArgsConstructor
@@ -21,11 +24,22 @@ public class LoginController {
         return ResponseEntity.ok("Login Successful");
     }
 
-    @PostMapping("/auth/auto-login")
-    public ResponseEntity<?> autoLogin(@CookieValue("sdFor_refresh_token") String refreshToken, HttpServletResponse res) {
+    @GetMapping("/auth/auto-login")
+    public ResponseEntity<?> autoLogin(@CookieValue("kurt_refresh_token") String refreshToken, HttpServletResponse res) {
 
         loginService.autoLogin(refreshToken, res);
 
         return ResponseEntity.ok("Login Successful");
     }
+
+
+
+
+
+
+
+
+
+
+
 }

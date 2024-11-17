@@ -97,7 +97,7 @@ public class JwtUtil {
         String accountId = getUsername(token);
         String storedToken = (String) redisTemplate.opsForValue().get("refreshToken : " + accountId);
 
-        return (storedToken.equals(accountId) && !isTokenExpired(token));
+        return (storedToken.equals(token) && !isTokenExpired(token));
     }
 
     public String getUsername(String token) {
