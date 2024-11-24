@@ -1,14 +1,11 @@
 package com.kurt.kurt_auth.biz.controller;
 
-import com.kurt.kurt_auth.biz.dto.LoginDTO;
+import com.kurt.kurt_auth.biz.dto.LoginDto;
 import com.kurt.kurt_auth.biz.service.LoginService;
-import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.Enumeration;
 
 @RestController
 @RequiredArgsConstructor
@@ -17,7 +14,7 @@ public class LoginController {
     private final LoginService loginService;
 
     @PostMapping("/auth/login")
-    public ResponseEntity<?> login(@RequestBody LoginDTO.Request loginDTO, HttpServletResponse res) {
+    public ResponseEntity<?> login(@RequestBody LoginDto.Request loginDTO, HttpServletResponse res) {
 
         loginService.login(loginDTO, res);
 

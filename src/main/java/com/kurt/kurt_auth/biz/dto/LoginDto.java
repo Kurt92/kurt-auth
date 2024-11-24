@@ -6,7 +6,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 
-public class LoginDTO {
+public class LoginDto {
 
     @AllArgsConstructor
     @Getter
