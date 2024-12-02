@@ -24,8 +24,6 @@ public class SignupController {
     @GetMapping("/duplicate-check")
     public ResponseEntity<?> duplicateCheck(@RequestParam String accountId) {
 
-//        signupService.duplicateCheck(accountId);
-
         return ResponseEntity.ok(signupService.duplicateCheck(accountId));
     }
 
