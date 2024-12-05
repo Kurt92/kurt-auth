@@ -15,6 +15,7 @@ java {
 
 repositories {
 	mavenCentral()
+//	maven { url 'https://jitpack.io' }
 }
 
 dependencies {
@@ -28,13 +29,18 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-data-redis'
 	implementation 'org.springframework.session:spring-session-data-redis'
 
+	// == aws ==
+	implementation 'software.amazon.awssdk:ssm:2.20.4' // aws 파라미터 스토어
+
 	// == jwt ==
 	implementation 'io.jsonwebtoken:jjwt-api:0.11.5'
 	implementation 'io.jsonwebtoken:jjwt-impl:0.11.5'
 	implementation 'io.jsonwebtoken:jjwt-jackson:0.11.5'
 
 	//evn
-	implementation 'io.github.cdimascio:dotenv-java:5.2.2'
+//	implementation 'io.github.cdimascio:dotenv-java:5.2.2'
+//	implementation 'com.github.shyiko:dotenv:0.1.1'
+	implementation("me.paulschwarz:spring-dotenv:3.0.0")
 
 
 	// === QueryDsl start ===
