@@ -34,7 +34,7 @@ dependencies {
 	implementation 'io.jsonwebtoken:jjwt-jackson:0.11.5'
 
 	//evn
-//	implementation 'io.github.cdimascio:dotenv-java:3.2.2'
+	implementation 'io.github.cdimascio:dotenv-java:5.2.2'
 
 
 	// === QueryDsl start ===
