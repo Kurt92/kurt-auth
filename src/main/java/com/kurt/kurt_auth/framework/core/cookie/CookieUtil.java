@@ -21,7 +21,7 @@ public class CookieUtil {
     public String generateTokenCookie(String tokenNm, String token, int expiredTime) {
         return ResponseCookie.from(tokenNm, token)
                 .httpOnly(true)
-                .secure(false) // HTTPS 환경에서는 true로 설정
+                .secure(true) // HTTPS 환경에서는 true로 설정
                 .path("/")
                 .maxAge(expiredTime)
                 .sameSite("None")
