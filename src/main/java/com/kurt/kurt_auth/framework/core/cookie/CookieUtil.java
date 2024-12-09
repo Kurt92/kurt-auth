@@ -22,6 +22,9 @@ public class CookieUtil {
     public String generateTokenCookie(String tokenNm, String token, int expiredTime, HttpServletRequest request) {
 
         String domain = request.getServerName().contains("localhost") ? "localhost" : "loaon.store";
+        System.out.println("---------------------------------------------------------------------------------------");
+        System.out.println("domain: " + domain);
+        System.out.println("---------------------------------------------------------------------------------------");
 
         return ResponseCookie.from(tokenNm, token)
                 .httpOnly(true)
