@@ -24,7 +24,7 @@ public class CookieUtil {
                 .secure(false) // HTTPS 환경에서는 true로 설정
                 .path("/")
                 .maxAge(expiredTime)
-//                .sameSite("None")
+                .sameSite("None")
                 .build()
                 .toString();
     }
