@@ -18,12 +18,12 @@ public class CookieUtil {
 //        return tokenCookie.toString();
 //    }
 
-    public String generateTokenCookie(String tokenNm, String token, int expiredTime) {
+    public String generateTokenCookie(String tokenNm, String token, Long expiredTime) {
         return ResponseCookie.from(tokenNm, token)
                 .httpOnly(true)
                 .secure(true) // HTTPS 환경에서는 true로 설정
                 .path("/")
-                .maxAge(expiredTime)
+                .maxAge(expiredTime / 1000) // 쿠키는 초단위로 설정해야해서 밀리초인걸 1000으로 나눈다
                 .sameSite("None")
                 .build()
                 .toString();
