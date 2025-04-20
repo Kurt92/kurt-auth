@@ -70,6 +70,7 @@ public class JwtUtil {
                 refreshToken,
                 JwtTokenEnum.ref.getExpiredTime(),
                 TimeUnit.MILLISECONDS
+                //Duration.ofDays(7) <- 이렇게 쓰는방법도 있다함. 이게 권장방식이라함
         );
 
         return refreshToken;

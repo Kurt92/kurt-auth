@@ -27,4 +27,20 @@ public class SignupController {
         return ResponseEntity.ok(signupService.duplicateCheck(accountId));
     }
 
+    @GetMapping("/email-verify-code-send")
+    public ResponseEntity<?> EmailVerifyCod(@RequestParam String email) {
+
+        signupService.sendVerifyEmailCode(email);
+
+        return ResponseEntity.ok("email verify code send success");
+    }
+
+    @GetMapping("/email-verify-code-check")
+    public ResponseEntity<?> EmailVerifyCodeCheck(@RequestParam String email, @RequestParam String code) {
+
+        signupService.verifyEmailCode(email, code);
+
+        return ResponseEntity.ok("email verify code");
+    }
+
 }
