@@ -42,3 +42,29 @@ sudo journalctl -u kurt_auth -f (서비스 콘솔)
 sudo -u redis redis-server /etc/redis/redis.conf <br>
 레디스 서비스 등록이 안되서 수동으로 키고있음 <br>
 추후 수정 요망 (aws 엘라스틱 캐시)
+
+### 2025-04-23 
+GitGuardian가 SMTP credentials를 감지했다는 경고가 날아옴.<br>
+앱 비밀번호 삭제하였고, 재생성 함.<br><br>
+.env.example 을 만들어 깃에 푸쉬<br>
+개발시 .env.example를 참고하여 작성하거나, .env 따로 공유 <br>
+운영은 docker-compose로 관리
+
+
+.env.example 예시
+```
+JWT_SECRET_KEY=
+
+# Redis 설정
+REDIS_HOST=localhost
+REDIS_PORT=6379
+# REDIS_PASSWORD=
+
+# SMTP 이메일 발송 설정 (Gmail 예시)
+SMTP_HOST=smtp.gmail.com
+SMTP_PORT=587
+SMTP_USERNAME=
+SMTP_PASSWORD=
+SMTP_STARTTLS_ENABLE=true
+SMTP_AUTH=true
+```
