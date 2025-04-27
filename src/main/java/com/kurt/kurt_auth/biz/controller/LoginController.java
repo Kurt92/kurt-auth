@@ -29,6 +29,14 @@ public class LoginController {
         return ResponseEntity.ok("Login Successful");
     }
 
+    @GetMapping("/auth/logout")
+    public ResponseEntity<?> logout(@CookieValue("kurt_refresh_token") String refreshToken, HttpServletResponse res) {
+
+        loginService.logout(refreshToken ,res);
+
+        return ResponseEntity.ok("Logout Successful");
+    }
+
 
 
 

@@ -43,6 +43,7 @@ public class JwtUtil {
 
         if(validateToken(refreshToken)) {
             Claims claims = Jwts.claims();
+            claims.put("userId", extractAllClaims(refreshToken).get("userId", Long.class));
             claims.put("accountId", extractAllClaims(refreshToken).get("accountId", String.class));
             claims.put("userNm", extractAllClaims(refreshToken).get("userNm", String.class));
             claims.put("email", extractAllClaims(refreshToken).get("email", String.class));
@@ -79,6 +80,7 @@ public class JwtUtil {
     public String doGenerateToken(UserMng userMng, long expireTime) {
 
         Claims claims = Jwts.claims();
+        claims.put("userId", userMng.getUserId());
         claims.put("accountId", userMng.getAccountId());
         claims.put("userNm", userMng.getUserNm());
         claims.put("email", userMng.getEmail());
