@@ -13,8 +13,8 @@ public class FriendService {
 
     private final FriendQueryDslRepository friendQueryDslRepository;
 
-    public List<FriendDto.Response.FriendList> findFriendList() {
+    public List<FriendDto.Response.FriendList> findFriendList(Long userId) {
 
-        return friendQueryDslRepository.findFriendList();
+        return friendQueryDslRepository.findFriendList(userId);
     }
 }

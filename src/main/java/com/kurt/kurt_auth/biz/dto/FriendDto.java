@@ -16,6 +16,7 @@ public class FriendDto {
         public static class FriendList {
 
             private Long userId;
+            private String accountId;
             private String userNm;
             private Long targetId;
             private String targetNm;

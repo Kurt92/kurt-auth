@@ -18,7 +18,7 @@ public class FriendQueryDslRepository {
     private final JPAQueryFactory queryFactory;
 
 
-    public List<FriendDto.Response.FriendList> findFriendList() {
+    public List<FriendDto.Response.FriendList> findFriendList(Long userId) {
 
         List<FriendDto.Response.FriendList> result = queryFactory
             .select(
@@ -26,12 +26,14 @@ public class FriendQueryDslRepository {
                             FriendDto.Response.FriendList.class,
                             userMapping.userMng.userId,
                             userMapping.accountId,
-                            userMapping.targetId
+                            userMapping.targetId,
+                            userMng.userNm.as("targetNm")
 
                 )
             )
             .from(userMapping)
             .innerJoin(userMng).on(userMapping.targetId.eq(userMng.userId))
+            .where(userMapping.userMng.userId.eq(userId))
             .fetch();
 
         return result;
