@@ -1,4 +1,4 @@
-# kurt_auth
+# kurt-auth
 
 JWT 발급을 위한 auth 서버
 
@@ -33,8 +33,8 @@ feat : board 비즈니스 로직 작성
 ### EC2 서비스 등록완료
 서버 내려가도 재시작 하도록 설정해놨음
 <br>
-sudo systemctl start kurt_auth (서비스 실행)<br>
-sudo journalctl -u kurt_auth -f (서비스 콘솔)
+sudo systemctl start kurt-auth (서비스 실행)<br>
+sudo journalctl -u kurt-auth -f (서비스 콘솔)
 
 
 
