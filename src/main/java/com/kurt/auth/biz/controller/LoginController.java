@@ -13,7 +13,7 @@ public class LoginController {
 
     private final LoginService loginService;
 
-    @PostMapping("/auth/login")
+    @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody LoginDto.Request loginDTO, HttpServletResponse res) {
 
         loginService.login(loginDTO, res);
@@ -21,7 +21,7 @@ public class LoginController {
         return ResponseEntity.ok("Login Successful");
     }
 
-    @GetMapping("/auth/auto-login")
+    @GetMapping("/auto-login")
     public ResponseEntity<?> autoLogin(@CookieValue("kurt_refresh_token") String refreshToken, HttpServletResponse res) {
 
         loginService.autoLogin(refreshToken, res);
@@ -29,7 +29,7 @@ public class LoginController {
         return ResponseEntity.ok("Login Successful");
     }
 
-    @GetMapping("/auth/logout")
+    @GetMapping("/logout")
     public ResponseEntity<?> logout(@CookieValue("kurt_refresh_token") String refreshToken, HttpServletResponse res) {
 
         loginService.logout(refreshToken ,res);
