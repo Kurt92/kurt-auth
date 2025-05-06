@@ -52,7 +52,6 @@ public class SignupService {
     //이메일 검증 코드 전송
     public void sendVerifyEmailCode(String email) {
 
-        log.info("👉 redisTemplate config host: {}", redisTemplate.getConnectionFactory().getConnection().getClientName());
 
 
         try {
@@ -74,6 +73,9 @@ public class SignupService {
             log.error("🔥 Redis 접속 실패 → host: {}, port: {}", "msa-redis", 6379);
             throw e;
         }
+        log.info("👉 redisTemplate config host: {}", redisTemplate.getConnectionFactory().getConnection().getClientName());
+
+
         String code = genRandomCode();
 
         // 1. Redis에 저장
