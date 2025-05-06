@@ -19,6 +19,7 @@ public class RedisConf {
         RedisStandaloneConfiguration serverConfig = new RedisStandaloneConfiguration("msa-redis", 6379);
 
         System.out.println("✅ Redis connecting to host: " + serverConfig.getHostName() + ", port: " + serverConfig.getPort());
+
         return new LettuceConnectionFactory();
     }
 

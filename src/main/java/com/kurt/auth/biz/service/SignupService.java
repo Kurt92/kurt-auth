@@ -7,6 +7,7 @@ import com.kurt.auth.biz.entity.UserMngRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.redis.RedisConnectionFailureException;
+import org.springframework.data.redis.connection.RedisConnectionFactory;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.http.HttpStatus;
 import org.springframework.mail.SimpleMailMessage;
@@ -51,7 +52,23 @@ public class SignupService {
     //이메일 검증 코드 전송
     public void sendVerifyEmailCode(String email) {
 
+        log.info("👉 redisTemplate config host: {}", redisTemplate.getConnectionFactory().getConnection().getClientName());
+
+
         try {
+            // 🔥 Redis 연결 시도 전에 실제 연결 정보 확인
+            RedisConnectionFactory factory = redisTemplate.getConnectionFactory();
+            if (factory instanceof org.springframework.data.redis.connection.lettuce.LettuceConnectionFactory) {
+                org.springframework.data.redis.connection.lettuce.LettuceConnectionFactory lettuceFactory =
+                        (org.springframework.data.redis.connection.lettuce.LettuceConnectionFactory) factory;
+
+                String host = lettuceFactory.getHostName();
+                int port = lettuceFactory.getPort();
+                log.info("🔍 RedisConnectionFactory 설정 → host: {}, port: {}", host, port);
+            } else {
+                log.warn("🔍 RedisConnectionFactory는 LettuceConnectionFactory가 아님 → {}", factory.getClass());
+            }
+
             redisTemplate.opsForValue().get("test");
         } catch (RedisConnectionFailureException e) {
             log.error("🔥 Redis 접속 실패 → host: {}, port: {}", "msa-redis", 6379);
