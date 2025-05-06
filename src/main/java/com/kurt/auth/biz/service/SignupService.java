@@ -5,6 +5,8 @@ import com.kurt.auth.biz.dto.SignupDto;
 import com.kurt.auth.biz.entity.UserMng;
 import com.kurt.auth.biz.entity.UserMngRepository;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.redis.RedisConnectionFailureException;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.http.HttpStatus;
 import org.springframework.mail.SimpleMailMessage;
@@ -14,6 +16,7 @@ import org.springframework.web.server.ResponseStatusException;
 
 import java.time.Duration;
 
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class SignupService {
@@ -48,6 +51,12 @@ public class SignupService {
     //이메일 검증 코드 전송
     public void sendVerifyEmailCode(String email) {
 
+        try {
+            redisTemplate.opsForValue().get("test");
+        } catch (RedisConnectionFailureException e) {
+            log.error("🔥 Redis 접속 실패 → host: {}, port: {}", "msa-redis", 6379);
+            throw e;
+        }
         String code = genRandomCode();
 
         // 1. Redis에 저장
