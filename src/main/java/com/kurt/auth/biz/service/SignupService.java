@@ -40,6 +40,7 @@ public class SignupService {
     //아이디 중복확인
     public Boolean duplicateCheck(String accountId) {
 
+        System.out.println("도커 캐시 테스트");
         return userMngRepository.existsByAccountId(accountId);
     }
 
