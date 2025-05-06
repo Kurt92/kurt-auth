@@ -10,7 +10,7 @@ COPY build/libs/*.jar app.jar
 # 4. 환경 변수 설정
 ENV JAVA_OPTS=""
 # 기본 프로파일 설정
-ENV SPRING_PROFILES_ACTIVE=${SPRING_PROFILES_ACTIVE:-local}
+ENV SPRING_PROFILES_ACTIVE=${SPRING_PROFILES_ACTIVE:-prod}
 
 # 5. 애플리케이션 실행 명령
 ENTRYPOINT ["sh", "-c", "java $JAVA_OPTS -jar app.jar"]
