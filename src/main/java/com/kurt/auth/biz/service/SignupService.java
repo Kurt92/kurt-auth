@@ -53,29 +53,6 @@ public class SignupService {
     public void sendVerifyEmailCode(String email) {
 
 
-
-        try {
-            // 🔥 Redis 연결 시도 전에 실제 연결 정보 확인
-            RedisConnectionFactory factory = redisTemplate.getConnectionFactory();
-            if (factory instanceof org.springframework.data.redis.connection.lettuce.LettuceConnectionFactory) {
-                org.springframework.data.redis.connection.lettuce.LettuceConnectionFactory lettuceFactory =
-                        (org.springframework.data.redis.connection.lettuce.LettuceConnectionFactory) factory;
-
-                String host = lettuceFactory.getHostName();
-                int port = lettuceFactory.getPort();
-                log.info("🔍 RedisConnectionFactory 설정 → host: {}, port: {}", host, port);
-            } else {
-                log.warn("🔍 RedisConnectionFactory는 LettuceConnectionFactory가 아님 → {}", factory.getClass());
-            }
-
-            redisTemplate.opsForValue().get("test");
-        } catch (RedisConnectionFailureException e) {
-            log.error("🔥 Redis 접속 실패 → host: {}, port: {}", "msa-redis", 6379);
-            throw e;
-        }
-        log.info("👉 redisTemplate config host: {}", redisTemplate.getConnectionFactory().getConnection().getClientName());
-
-
         String code = genRandomCode();
 
         // 1. Redis에 저장
