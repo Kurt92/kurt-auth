@@ -42,4 +42,4 @@ logging:
     root: info
     org.hibernate.SQL: debug
     org.hibernate.type: trace
-    org.springframework.data.redis: info
+    org.springframework.data.redis: debug
