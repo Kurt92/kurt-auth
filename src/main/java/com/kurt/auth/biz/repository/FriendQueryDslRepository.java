@@ -41,4 +41,27 @@ public class FriendQueryDslRepository {
     }
 
 
+    public List<FriendDto.Response.UserList> findUserList(String targetNm, Long userId) {
+
+
+        List<FriendDto.Response.UserList> result = queryFactory
+                .select(Projections.fields(
+                        FriendDto.Response.UserList.class,
+                        userMng.userId,
+                        userMng.userNm.as("targetNm"),
+                        userMng.userId.as("targetId"),
+                        userMapping.userMng.userId.isNotNull().as("isFriend")
+                ))
+                .from(userMng)
+                .leftJoin(userMapping).on(userMapping.userMng.userId.eq(userId)
+                        .and(userMapping.targetId.eq(userMng.userId)))
+                .where(
+                        userMng.userId.ne(userId),
+                        targetNm != null ? userMng.userNm.startsWith(targetNm) : null
+                )
+                .fetch();
+
+        return result;
+
+    }
 }

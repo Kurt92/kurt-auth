@@ -24,5 +24,20 @@ public class FriendDto {
 
         }
 
+        @Getter
+        @Setter
+        @AllArgsConstructor
+        @NoArgsConstructor
+        @Builder
+        public static class UserList {
+
+            private Long userId;
+            private Long targetId;
+            private String targetNm;
+            private Boolean isAlreadyFriend;
+
+
+        }
+
     }
 }

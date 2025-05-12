@@ -13,9 +13,18 @@ public class FriendController {
 
     private final FriendService friendService;
 
+
+
     @GetMapping("/friend-list")
     public ResponseEntity<?> findFriendList(@RequestParam Long userId) {
 
         return ResponseEntity.ok(friendService.findFriendList(userId));
     }
+
+    @GetMapping("/user-list")
+    public ResponseEntity<?> findUserList(@RequestParam String targetNm, @RequestParam Long userId) {
+
+        return ResponseEntity.ok(friendService.findUserList(targetNm, userId));
+    }
+
 }

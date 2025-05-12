@@ -1,6 +1,7 @@
 package com.kurt.auth.biz.entity;
 
 
+import com.kurt.auth.biz.constant.FriendStatus;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -37,5 +38,10 @@ public class UserMapping {
     @Column(name = "target_id")
     @Comment("타겟 ID")
     private Long targetId;
+
+    @Column(name = "status")
+    @Enumerated(EnumType.STRING)
+    @Comment("친구 상태: PENDING, ACCEPTED, REJECTED")
+    private FriendStatus status;
 
 }
