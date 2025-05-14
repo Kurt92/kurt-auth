@@ -64,4 +64,15 @@ public class FriendQueryDslRepository {
         return result;
 
     }
+
+    public boolean existsFriendRelation(Long targetId, Long userId) {
+        return queryFactory
+                .selectOne()
+                .from(userMapping)
+                .where(
+                        userMapping.userMng.userId.eq(userId).and(userMapping.targetId.eq(targetId))
+                                .or(userMapping.userMng.userId.eq(targetId).and(userMapping.targetId.eq(userId)))
+                )
+                .fetchFirst() != null;
+    }
 }

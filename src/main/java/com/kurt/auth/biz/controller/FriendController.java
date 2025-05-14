@@ -27,4 +27,10 @@ public class FriendController {
         return ResponseEntity.ok(friendService.findUserList(targetNm, userId));
     }
 
+    @GetMapping("/request-friend")
+    public ResponseEntity<?> requestFriend(@RequestParam Long targetId, @RequestParam Long userId) {
+        friendService.requestFriend(targetId, userId);
+        return ResponseEntity.ok("request success");
+    }
+
 }
