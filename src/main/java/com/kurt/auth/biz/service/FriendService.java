@@ -12,6 +12,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -27,6 +28,11 @@ public class FriendService {
         return friendQueryDslRepository.findFriendList(userId);
     }
 
+    public List<FriendDto.Response.FreindRequestList> findFriendRequestList(Long userId) {
+
+        return friendQueryDslRepository.findFriendRequestList(userId);
+    }
+
     public List<FriendDto.Response.UserList> findUserList(String targetNm, Long userId) {
 
         return friendQueryDslRepository.findUserList(targetNm, userId);
@@ -39,18 +45,32 @@ public class FriendService {
         boolean exists = friendQueryDslRepository.existsFriendRelation(targetId, userId);
         if (exists) throw new RuntimeException("이미 등록된 친구입니다."); 
 
-        // 요청자 정보조회
+        // 정보조회
         UserMng userMng = userMngRepository.findById(userId)
                 .orElseThrow(() -> new RuntimeException("사용자 정보가 없습니다."));
 
+        UserMng targetUserMng = userMngRepository.findById(targetId)
+                .orElseThrow(()-> new RuntimeException("요청자 정보가 없습니다."));
+
         // 친구 PENDING 상태로 저장
-        UserMapping mapping = UserMapping.builder()
+        UserMapping result = UserMapping.builder()
                 .userMng(userMng)
-                .targetId(targetId)
+                .targetId(targetUserMng)
                 .accountId(userMng.getAccountId())
                 .status(FriendStatus.PENDING)
                 .build();
 
-        userMappingRepository.save(mapping);
+        userMappingRepository.save(result);
+    }
+
+    @Transactional
+    public void requestStatusSet(Long userMappingId, FriendStatus status) {
+
+        // 요청 조회
+        UserMapping userMapping = userMappingRepository.findById(userMappingId)
+                .orElseThrow(()-> new RuntimeException("친구신청이 없습니다."));
+
+        // 친구 상태 수정
+       userMapping.changeStatus(status);
     }
 }

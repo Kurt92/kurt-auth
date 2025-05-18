@@ -29,6 +29,20 @@ public class FriendDto {
         @AllArgsConstructor
         @NoArgsConstructor
         @Builder
+        public static class FreindRequestList {
+
+            private Long userMappingId;
+            private Long targetId;
+            private String targetNm;
+
+
+        }
+
+        @Getter
+        @Setter
+        @AllArgsConstructor
+        @NoArgsConstructor
+        @Builder
         public static class UserList {
 
             private Long userId;

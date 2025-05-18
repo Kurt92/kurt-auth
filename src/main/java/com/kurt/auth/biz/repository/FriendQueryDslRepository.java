@@ -1,5 +1,6 @@
 package com.kurt.auth.biz.repository;
 
+import com.kurt.auth.biz.constant.FriendStatus;
 import com.kurt.auth.biz.dto.FriendDto;
 import com.querydsl.core.types.Projections;
 import com.querydsl.jpa.impl.JPAQueryFactory;
@@ -26,14 +27,17 @@ public class FriendQueryDslRepository {
                             FriendDto.Response.FriendList.class,
                             userMapping.userMng.userId,
                             userMapping.accountId,
-                            userMapping.targetId,
+                            userMapping.targetId.userId.as("targetId"),
                             userMng.userNm.as("targetNm")
 
                 )
             )
             .from(userMapping)
-            .innerJoin(userMng).on(userMapping.targetId.eq(userMng.userId))
-            .where(userMapping.userMng.userId.eq(userId))
+            .innerJoin(userMng).on(userMapping.targetId.userId.eq(userMng.userId))
+            .where(
+                    userMapping.userMng.userId.eq(userId).or(userMapping.targetId.userId.eq(userId)),
+                    userMapping.status.eq(FriendStatus.ACCEPTED)
+            )
             .fetch();
 
         return result;
@@ -54,10 +58,34 @@ public class FriendQueryDslRepository {
                 ))
                 .from(userMng)
                 .leftJoin(userMapping).on(userMapping.userMng.userId.eq(userId)
-                        .and(userMapping.targetId.eq(userMng.userId)))
+                        .and(userMapping.targetId.userId.eq(userMng.userId)))
                 .where(
                         userMng.userId.ne(userId),
                         targetNm != null ? userMng.userNm.startsWith(targetNm) : null
+                )
+                .fetch();
+
+        return result;
+
+    }
+
+    public List<FriendDto.Response.FreindRequestList> findFriendRequestList(Long userId) {
+
+        List<FriendDto.Response.FreindRequestList> result = queryFactory
+                .select(
+                        Projections.fields(
+                                FriendDto.Response.FreindRequestList.class,
+                                userMapping.userMappingId,
+                                userMapping.targetId.userId.as("targetId"),
+                                userMng.userNm.as("targetNm")
+
+                        )
+                )
+                .from(userMapping)
+                .innerJoin(userMng).on(userMapping.userMng.userId.eq(userMng.userId))
+                .where(
+                        userMapping.targetId.userId.eq(userId),
+                        userMapping.status.eq(FriendStatus.PENDING)
                 )
                 .fetch();
 
@@ -70,8 +98,8 @@ public class FriendQueryDslRepository {
                 .selectOne()
                 .from(userMapping)
                 .where(
-                        userMapping.userMng.userId.eq(userId).and(userMapping.targetId.eq(targetId))
-                                .or(userMapping.userMng.userId.eq(targetId).and(userMapping.targetId.eq(userId)))
+                        userMapping.userMng.userId.eq(userId).and(userMapping.targetId.userId.eq(targetId))
+                                .or(userMapping.userMng.userId.eq(targetId).and(userMapping.targetId.userId.eq(userId)))
                 )
                 .fetchFirst() != null;
     }

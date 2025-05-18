@@ -35,13 +35,19 @@ public class UserMapping {
     @Comment("계정 ID")
     private String accountId;
 
-    @Column(name = "target_id")
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "target_id")
     @Comment("타겟 ID")
-    private Long targetId;
+    private UserMng targetId;
 
     @Column(name = "status")
     @Enumerated(EnumType.STRING)
     @Comment("친구 상태: PENDING, ACCEPTED, REJECTED")
     private FriendStatus status;
+
+
+    public void changeStatus(FriendStatus status) {
+        this.status = status;
+    }
 
 }
