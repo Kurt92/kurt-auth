@@ -22,6 +22,13 @@ public class FriendController {
         return ResponseEntity.ok(friendService.findFriendList(userId));
     }
 
+    // 친구 상태 조회
+    @GetMapping("/friend-status")
+    public ResponseEntity<?> findFriendStatus(@RequestParam Long userId) {
+
+        return ResponseEntity.ok(friendService.findFriendStatus(userId));
+    }
+
     // 친구 요청 목록 조회
     @GetMapping("/friend-req")
     public ResponseEntity<?> findFriendRequestList(@RequestParam Long userId) {

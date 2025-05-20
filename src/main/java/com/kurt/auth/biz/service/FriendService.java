@@ -22,22 +22,32 @@ public class FriendService {
     private final UserMngRepository userMngRepository;
     private final FriendQueryDslRepository friendQueryDslRepository;
 
+    // 친구 목록 조회
 
     public List<FriendDto.Response.FriendList> findFriendList(Long userId) {
 
         return friendQueryDslRepository.findFriendList(userId);
     }
 
+    // 친구 상태 조회
+    public Object findFriendStatus(Long userId) {
+
+        return null;
+    }
+
+    // 친구 요청 목록 조회
     public List<FriendDto.Response.FreindRequestList> findFriendRequestList(Long userId) {
 
         return friendQueryDslRepository.findFriendRequestList(userId);
     }
 
+    // 유저 목록 조회
     public List<FriendDto.Response.UserList> findUserList(String targetNm, Long userId) {
 
         return friendQueryDslRepository.findUserList(targetNm, userId);
     }
 
+    // 친구 요청
     @Transactional
     public void requestFriend(Long targetId, Long userId) {
         // 친구 여부 확인
@@ -63,6 +73,7 @@ public class FriendService {
         userMappingRepository.save(result);
     }
 
+    // 친구 요청 수락
     @Transactional
     public void requestStatusSet(Long userMappingId, FriendStatus status) {
 
@@ -73,4 +84,6 @@ public class FriendService {
         // 친구 상태 수정
        userMapping.changeStatus(status);
     }
+
+
 }
