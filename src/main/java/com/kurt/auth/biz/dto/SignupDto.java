@@ -9,8 +9,9 @@ public class SignupDto {
     public static class Request {
 
         @NotNull
-        String accountId;
-        String password;
-        String email;
+        private String accountId;
+        private String password;
+        private String email;
+        private String userNm;
     }
 }
