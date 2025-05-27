@@ -11,6 +11,8 @@ import lombok.AllArgsConstructor;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 @Service
 @AllArgsConstructor
 public class LoginService {
@@ -22,7 +24,10 @@ public class LoginService {
 
     public void login(LoginDto.Request loginDTO, HttpServletResponse res) {
 
-        UserMng userMng = userMngRepository.findByAccountIdAndAccountPass(loginDTO.getId(), loginDTO.getPassword());
+
+        Optional<UserMng> userMngOpt = userMngRepository.findByAccountIdAndAccountPass(loginDTO.getId(), loginDTO.getPassword());
+        UserMng userMng = userMngOpt.orElseThrow(() -> new RuntimeException("아이디 또는 비밀번호가 틀렸습니다."));
+
         res.addHeader("Set-Cookie", cookieUtil.generateTokenCookie(JwtTokenEnum.acc.getName(), jwtUtil.generateAccessToken(userMng), JwtTokenEnum.acc.getExpiredTime()));
         res.addHeader("Set-Cookie", cookieUtil.generateTokenCookie(JwtTokenEnum.ref.getName(), jwtUtil.generateRefreshToken(userMng), JwtTokenEnum.ref.getExpiredTime()));
     }
