@@ -23,7 +23,7 @@ public class JwtUtil {
 
 
     @Autowired
-    private RedisTemplate<String, Object> redisTemplate;
+    private RedisTemplate<String, String> redisTemplate;
 
 
     @Value("${spring.data.jwt.secret}")

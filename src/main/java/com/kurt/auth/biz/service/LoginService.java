@@ -20,7 +20,7 @@ public class LoginService {
     private final JwtUtil jwtUtil;
     private final CookieUtil cookieUtil;
     private final UserMngRepository userMngRepository;
-    private final RedisTemplate<String, Object> redisTemplate;
+    private final RedisTemplate<String, String> redisTemplate;
 
     public void login(LoginDto.Request loginDTO, HttpServletResponse res) {
 

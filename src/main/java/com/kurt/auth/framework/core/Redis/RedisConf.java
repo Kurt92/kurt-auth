@@ -33,11 +33,17 @@ public class RedisConf {
 //    }
 
     @Bean
-    public RedisTemplate<String, Object> redisTemplate() {
-        RedisTemplate<String, Object> template = new RedisTemplate<>();
+    public RedisTemplate<String, String> redisTemplate() {
+        RedisTemplate<String, String> template = new RedisTemplate<>();
         template.setConnectionFactory(redisConnectionFactory());
-        template.setKeySerializer(new StringRedisSerializer());
-        template.setValueSerializer(new StringRedisSerializer());
+
+        // 직렬화
+        StringRedisSerializer serializer = new StringRedisSerializer();
+        template.setKeySerializer(serializer);         // key
+        template.setValueSerializer(serializer);       // 일반 value
+        template.setHashKeySerializer(serializer);     // hash key
+        template.setHashValueSerializer(serializer);   // hash value
+        template.setDefaultSerializer(serializer);     // Set/List/Other
         return template;
     }
 
